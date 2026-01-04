@@ -772,10 +772,26 @@
     // Connect wallet
     async function connectWallet() {
         try {
+            // Check if we're on mobile
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            
             if (typeof window.ethereum === 'undefined') {
-                alert('Please install MetaMask to use Arc Forge!\n\nMetaMask is a browser extension that manages your crypto wallet. You can download it from metamask.io');
-                window.open('https://metamask.io/download/', '_blank');
-                return;
+                if (isMobile) {
+                    // On mobile without MetaMask browser, open in MetaMask app
+                    const dappUrl = window.location.href.replace(/^https?:\/\//, '');
+                    const metamaskDeepLink = `https://metamask.app.link/dapp/${dappUrl}`;
+                    
+                    // Show user-friendly message
+                    if (confirm('MetaMask not detected. Open this page in MetaMask app?\n\nTap OK to open MetaMask')) {
+                        window.location.href = metamaskDeepLink;
+                    }
+                    return;
+                } else {
+                    // On desktop without extension
+                    alert('Please install MetaMask!\n\n1. Go to metamask.io\n2. Install the browser extension\n3. Come back and refresh this page');
+                    window.open('https://metamask.io/download/', '_blank');
+                    return;
+                }
             }
 
             const btn = document.getElementById('connectWalletBtn');
