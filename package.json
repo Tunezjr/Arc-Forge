@@ -1,0 +1,13 @@
+{
+  "name": "arc-forge",
+  "version": "1.0.0",
+  "description": "No-code smart contract builder for Arc Network",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "keywords": ["blockchain", "smart-contracts", "arc", "no-code"],
+  "author": "Tunez",
+  "license": "MIT"
+}
